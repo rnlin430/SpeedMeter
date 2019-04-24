@@ -1,0 +1,33 @@
+name: SpeedMeter
+main: Meter.Speed.SpeedMeter
+version: 2.0.0
+author: rnlin
+description: Speedmeter
+
+commands:
+  speedmeter:
+    description: It's main commands of this plugin.
+    aliases: [sm,speed,spm]
+    usage: 
+           /<command> [true|false] - 有効と無効を切り替えます
+           /<command> r <updatefrequency> - メーターの更新頻度を設定します
+    permisson: speed.meter.command.speedmeter
+    permission-message: You don't have the permission "<permission>".
+  meter:
+    description: It's commands of this plugin.
+    aliases: [mt]
+    usage: /<command> [on|off] - メーターの表示を切り替えます
+    permission: speed.meter.command.meter
+    permission-message: You don't have the permission "<permission>".
+
+permissions:
+  speed.meter.command.speedmeter:
+    description: speedmeterコマンドの使用権限
+    default: op
+  speed.meter.command.meter:
+    description: meterコマンドの使用権限
+    default: true
+  speed.meter.speedmeter.boat:
+    description: スピードメーター
+    default: true
+  
