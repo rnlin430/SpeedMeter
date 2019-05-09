@@ -1,6 +1,6 @@
 name: SpeedMeter
 main: Meter.Speed.SpeedMeter
-version: 2.0.0
+version: 3.0
 author: rnlin
 description: Speedmeter
 
@@ -19,6 +19,12 @@ commands:
     usage: /<command> [on|off] - メーターの表示を切り替えます
     permission: speed.meter.command.meter
     permission-message: You don't have the permission "<permission>".
+  allmeter:
+    description: It's commands of this plugin.
+    aliases: [mt]
+    usage: /<command> [on|off] - メーターの表示を切り替えます
+    permission: speed.meter.speedmeter.allmeter
+    permission-message: You don't have the permission "<permission>".   
 
 permissions:
   speed.meter.command.speedmeter:
@@ -30,4 +36,8 @@ permissions:
   speed.meter.speedmeter.boat:
     description: スピードメーター
     default: true
+  speed.meter.speedmeter.allmeter:
+    description: すべてのスピードメーター
+    default: true
+  
   

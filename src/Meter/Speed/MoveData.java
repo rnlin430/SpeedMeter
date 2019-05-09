@@ -5,21 +5,25 @@ public class MoveData {
 
 	private double x;
 	private double z;
+	private double y;
 
 	public MoveData(){
-
 	}
 
 	public long getTime() {
-	return time;
+		return time;
 	}
 
 	public void setTime(long time) {
-	this.time = time;
+		this.time = time;
 	}
 
 	public double getX() {
-	return x;
+		return x;
+	}
+
+	public double getY() {
+		return y;
 	}
 
 	public double getZ() {
@@ -27,7 +31,13 @@ public class MoveData {
 	}
 
 	public void setLocation(double x, double z) {
-	this.x = x;
-	this.z = z;
-}
+		this.x = x;
+		this.z = z;
+	}
+
+	public void setLocation(double x, double z, double y) {
+		this.x = x;
+		this.z = z;
+		this.y = y;
+	}
 }
