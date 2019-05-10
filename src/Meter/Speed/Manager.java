@@ -24,13 +24,13 @@ public class Manager {
 				e.printStackTrace();
 			}
 		}
-		YamlConfiguration config_discrete_meter_on_off =
+		YamlConfiguration configDiscreteMeterOnOff =
 				YamlConfiguration.loadConfiguration(fileDiscreteMeterOnOff);
 
 		discreteMeterOnOff = new HashMap<String, Boolean>();
 
-		for ( String key : config_discrete_meter_on_off.getKeys(false) ) {
-			discreteMeterOnOff.put(key, config_discrete_meter_on_off.getBoolean(key));
+		for ( String key : configDiscreteMeterOnOff.getKeys(false) ) {
+			discreteMeterOnOff.put(key, configDiscreteMeterOnOff.getBoolean(key));
 		}
 	}
 

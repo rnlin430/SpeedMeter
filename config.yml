@@ -1,5 +1,5 @@
 # Configuration for SpeedMeter
-# Version: 3.0
+# Version: 3.1
 # Author: rnlin
 #
 # Enable / disable switch‼(true/false)
@@ -12,3 +12,7 @@ Allowed_World_Names:
    - world
    - world_the_end
    - world_nether
+Calculate_speed_in_three_dimensions_Elytra: true
+Player_Speed_Threshold: 15
+Other_Vehicle_Speed_Threshold: 30
+Vehicle_Speed_Threshold: 0.3
