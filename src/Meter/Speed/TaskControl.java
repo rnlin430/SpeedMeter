@@ -4,7 +4,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class TaskControl extends BukkitRunnable {
 	public TaskControl(){
-
 	}
 
 	private int count = 500;

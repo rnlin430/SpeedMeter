@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="unnamed">
+    <output-path>G:/minecraftserver/Spigot 1.13.2 test/plugins</output-path>
+    <root id="archive" name="SpeedMeter3.1.2.jar">
+      <element id="module-output" name="SpeedMater3" />
+      <element id="file-copy" path="$PROJECT_DIR$/config.yml" />
+      <element id="file-copy" path="$PROJECT_DIR$/playerdata.yml" />
+    </root>
+  </artifact>
+</component>

@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
+@SuppressWarnings("ALL")
 public class SpeedMeter extends JavaPlugin {
 
 	@Override
@@ -23,17 +24,16 @@ public class SpeedMeter extends JavaPlugin {
 		super.onDisable();
 	}
 
-	BukkitTask task;
 	private static SpeedMeter instance;
-	static public boolean enablemeter = true;
-	public static int countmainasu = 300;
-	public static Boolean scheduler = true;
-	public static List<String> AllowedWorldNames;
-	public static Manager manager;
-	FileConfiguration config;
-	FileConfiguration playerDataConfig;
-	CustomConfig playerDataCustomconfig;
-	public HashMap<String, Boolean> allMeterOnOffList = new HashMap<String, Boolean>();
+	static boolean enablemeter = true;
+	static int countmainasu = 300;
+	static Boolean scheduler = true;
+	static List<String> AllowedWorldNames;
+	static Manager manager;
+	private FileConfiguration config;
+	private FileConfiguration playerDataConfig;
+	private CustomConfig playerDataCustomconfig;
+	public HashMap<String, Boolean> allMeterOnOffList;
 
 	@Override
 	public void onEnable() {
@@ -41,11 +41,12 @@ public class SpeedMeter extends JavaPlugin {
 		super.onEnable();
 		new PlayerMoveListener(this);
 		System.out.println("\u001b[32m" + "SpeedMeterがロードされました" + "\u001b[m");
+		allMeterOnOffList = new HashMap<String, Boolean>();
 
 		// config
 		initialize();
 
-		task = new TaskControl().runTaskTimer(this, 0, 1);
+		new TaskControl().runTaskTimer(this, 0, 1);
 	}
 
 	@Override
@@ -62,11 +63,11 @@ public class SpeedMeter extends JavaPlugin {
 			}
 			switch (args.length) {
 			case 0:
-				if (SpeedMeter.enablemeter == true) {
+				if (SpeedMeter.enablemeter) {
 					sender.sendMessage(ChatColor.GRAY + "SpeedMeterは有効です");
 					displayInfo(sender);
 					return true;
-				} else if (SpeedMeter.enablemeter == false) {
+				} else if (!SpeedMeter.enablemeter) {
 					sender.sendMessage(ChatColor.GRAY + "SpeedMeterは無効です");
 					displayInfo(sender);
 					return true;
@@ -266,6 +267,11 @@ public class SpeedMeter extends JavaPlugin {
 						return true;
 					}
 				}
+				else{
+					manager.setPlayersDiscreteDeteronoff(player.getName(), false);
+					sender.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "info: 速度は非表示です。");
+					return true;
+				}
 			} else if (args.length == 1 && ((args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off")))) {
 				// meterのon/off の実行
 
@@ -326,13 +332,18 @@ public class SpeedMeter extends JavaPlugin {
 			}
 			if (args.length == 0) {
 				Player player = (Player) sender;
-				if (!this.allMeterOnOffList.get(player.getName())
-						|| !this.allMeterOnOffList.containsKey(player.getName())) {
-					return setAllmeter(true, sender);
+				try {
+					if (!this.allMeterOnOffList.get(player.getName())
+							|| this.allMeterOnOffList.containsKey(player.getName()) ) {
+						return setAllmeter(true, sender);
+					}
+					if (this.allMeterOnOffList.get(player.getName())) {
+						return setAllmeter(false, sender);
+					}
+				}catch(NullPointerException e){
+					setAllmeter(true, sender);
 				}
-				if (this.allMeterOnOffList.get(player.getName())) {
-					return setAllmeter(false, sender);
-				}
+
 			}
 			if (args.length == 1 && (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off"))) {
 				// meterのon/off の実行
@@ -352,14 +363,22 @@ public class SpeedMeter extends JavaPlugin {
 	public Boolean setAllmeter(Boolean b, CommandSender sender) {
 		Player player = (Player) sender;
 		if (b) {
-			if (SpeedMeter.manager.discreteMeterOnOff.get(player.getName())) {
-				sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "info: 常に速度が表示されます。");
-				allMeterOnOffList.put(player.getName(), true);
-				playerDataConfig.set(player.getName(), true);
-				playerDataCustomconfig.saveConfig();
-				return true;
-			} else if (!SpeedMeter.manager.discreteMeterOnOff.get(player.getName())) {
-				manager.setPlayersDiscreteDeteronoff(player.getName(), true);
+			try {
+				if (SpeedMeter.manager.discreteMeterOnOff.get(player.getName())) {
+					sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "info: 常に速度が表示されます。");
+					allMeterOnOffList.put(player.getName(), true);
+					playerDataConfig.set(player.getName(), true);
+					playerDataCustomconfig.saveConfig();
+					return true;
+				} else if (!SpeedMeter.manager.discreteMeterOnOff.get(player.getName())) {
+					manager.setPlayersDiscreteDeteronoff(player.getName(), true);
+					sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "info: 常に速度が表示されます。");
+					allMeterOnOffList.put(player.getName(), true);
+					playerDataConfig.set(player.getName(), true);
+					playerDataCustomconfig.saveConfig();
+					return true;
+				}
+			}catch (NullPointerException e){
 				sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "info: 常に速度が表示されます。");
 				allMeterOnOffList.put(player.getName(), true);
 				playerDataConfig.set(player.getName(), true);

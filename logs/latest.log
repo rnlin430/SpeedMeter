@@ -1,0 +1,24 @@
+[05:37:07] [main/INFO]: Loaded 0 recipes
+[05:37:07] [Server thread/INFO]: Starting minecraft server version 1.13.1
+[05:37:07] [Server thread/INFO]: Loading properties
+[05:37:07] [Server thread/WARN]: server.properties does not exist
+[05:37:07] [Server thread/INFO]: Generating new properties file
+[05:37:07] [Server console handler/ERROR]: Exception handling console input
+java.io.IOException: ハンドルが無効です�??
+	at java.io.FileInputStream.readBytes(Native Method) ~[?:?]
+	at java.io.FileInputStream.read(FileInputStream.java:256) ~[?:?]
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246) ~[?:?]
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:265) ~[?:?]
+	at org.bukkit.craftbukkit.libs.jline.internal.NonBlockingInputStream.read(NonBlockingInputStream.java:248) ~[SpeedMater3.jar:git-Spigot-f6a273b-1cf8b5d]
+	at org.bukkit.craftbukkit.libs.jline.internal.InputStreamReader.read(InputStreamReader.java:261) ~[SpeedMater3.jar:git-Spigot-f6a273b-1cf8b5d]
+	at org.bukkit.craftbukkit.libs.jline.internal.InputStreamReader.read(InputStreamReader.java:198) ~[SpeedMater3.jar:git-Spigot-f6a273b-1cf8b5d]
+	at org.bukkit.craftbukkit.libs.jline.console.ConsoleReader.readCharacter(ConsoleReader.java:2145) ~[SpeedMater3.jar:git-Spigot-f6a273b-1cf8b5d]
+	at org.bukkit.craftbukkit.libs.jline.console.ConsoleReader.readLineSimple(ConsoleReader.java:3183) ~[SpeedMater3.jar:git-Spigot-f6a273b-1cf8b5d]
+	at org.bukkit.craftbukkit.libs.jline.console.ConsoleReader.readLine(ConsoleReader.java:2333) ~[SpeedMater3.jar:git-Spigot-f6a273b-1cf8b5d]
+	at org.bukkit.craftbukkit.libs.jline.console.ConsoleReader.readLine(ConsoleReader.java:2269) ~[SpeedMater3.jar:git-Spigot-f6a273b-1cf8b5d]
+	at org.bukkit.craftbukkit.libs.jline.console.ConsoleReader.readLine(ConsoleReader.java:2257) ~[SpeedMater3.jar:git-Spigot-f6a273b-1cf8b5d]
+	at net.minecraft.server.v1_13_R2.DedicatedServer$2.run(DedicatedServer.java:93) [SpeedMater3.jar:git-Spigot-f6a273b-1cf8b5d]
+[05:37:07] [Server thread/WARN]: Failed to load eula.txt
+[05:37:07] [Server thread/INFO]: You need to agree to the EULA in order to run the server. Go to eula.txt for more info.
+[05:37:07] [Server thread/INFO]: Stopping server
+[05:37:07] [Server thread/INFO]: Saving worlds

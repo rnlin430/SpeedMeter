@@ -25,15 +25,17 @@ import org.bukkit.event.vehicle.VehicleMoveEvent;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 
+import static Meter.Speed.SpeedMeter.*;
+
 public class PlayerMoveListener implements Listener {
 
-	SpeedMeter plugin;
-	static public double playerSpeedThresholdValue = 15;
-	static public double otherVehicleSpeedThresholdValue = 30;
-	static public double vehicleSpeedThresholdValue = 0.3;
-	static public Boolean ElytraMode = true;
+	private SpeedMeter plugin;
+	static double playerSpeedThresholdValue = 15;
+	static double otherVehicleSpeedThresholdValue = 30;
+	static double vehicleSpeedThresholdValue = 0.3;
+	static Boolean ElytraMode = true;
 
-		public PlayerMoveListener(SpeedMeter plugin) {
+		PlayerMoveListener(SpeedMeter plugin) {
 			plugin.getServer().getPluginManager().registerEvents(this, plugin);
 			this.plugin = plugin;
 		}
@@ -44,17 +46,18 @@ public class PlayerMoveListener implements Listener {
 		@EventHandler
 		public void onMoveVehicle(final VehicleMoveEvent e) {
 
-			if(SpeedMeter.enablemeter == false) return;
-			if(SpeedMeter.scheduler == false && (SpeedMeter.countmainasu >= 500) == false) return;
+			if(!enablemeter) return;
+			if(!scheduler && !(countmainasu >= 500)) return;
 			Vehicle v = e.getVehicle();
 			if(!((v instanceof Boat) || (v instanceof Minecart))) return;
 			List<Entity> passengers = v.getPassengers();
 			if(passengers.isEmpty() || !(passengers.get(0) instanceof Player)) return;
-			Player p = (Player) passengers.get(0);
+			Player p;
+			p = (Player) passengers.get(0);
 			if(!p.hasPermission("speed.meter.speedmeter.boat")) return;
-		    if(!SpeedMeter.AllowedWorldNames.contains(p.getWorld().getName())) return;
-			if(SpeedMeter.manager.discreteMeterOnOff.containsKey(p.getName()))
-				if(!(SpeedMeter.manager.discreteMeterOnOff.get(p.getName()))) return;
+		    if(!AllowedWorldNames.contains(p.getWorld().getName())) return;
+			if(manager.discreteMeterOnOff.containsKey(p.getName()))
+				if(!(manager.discreteMeterOnOff.get(p.getName()))) return;
 			UUID uuid = p.getUniqueId();
 
 			/*
@@ -104,7 +107,6 @@ public class PlayerMoveListener implements Listener {
 						new TextComponent(ChatColor.AQUA + "" + ChatColor.BOLD + "" + ChatColor.UNDERLINE +
 							String.format("%.2f", velocity2) + ChatColor.RESET + " km/h" ));
 				}
-
 				return;
 			}
 			else if(velocity1 > 20) {
@@ -136,8 +138,8 @@ public class PlayerMoveListener implements Listener {
 
 		@EventHandler
 		public void onPlayerMove(final PlayerMoveEvent e) {
-			if(SpeedMeter.enablemeter == false) return;
-			if(SpeedMeter.scheduler == false && (SpeedMeter.countmainasu >= 500) == false) return;
+			if(!enablemeter) return;
+			if(!scheduler && (countmainasu >= 500) == false) return;
 			Player p = e.getPlayer();
 			if(p.isInsideVehicle()) {
 				Entity v = p.getVehicle();
@@ -149,9 +151,9 @@ public class PlayerMoveListener implements Listener {
 					List<Entity> passengers = v.getPassengers();
 					if(passengers.isEmpty() || !(passengers.get(0) instanceof Player)) return;
 					if(!p.hasPermission("speed.meter.speedmeter.boat")) return;
-				    if(!SpeedMeter.AllowedWorldNames.contains(p.getWorld().getName())) return;
-					if(SpeedMeter.manager.discreteMeterOnOff.containsKey(p.getName()))
-						if(!(SpeedMeter.manager.discreteMeterOnOff.get(p.getName()))) return;
+				    if(!AllowedWorldNames.contains(p.getWorld().getName())) return;
+					if(manager.discreteMeterOnOff.containsKey(p.getName()))
+						if(!(manager.discreteMeterOnOff.get(p.getName()))) return;
 					UUID uuid = p.getUniqueId();
 
 					/*
@@ -173,9 +175,9 @@ public class PlayerMoveListener implements Listener {
 			if(!plugin.allMeterOnOffList.containsKey(p.getName())) return; // 既定でメーターを表示しない
 			if(!plugin.allMeterOnOffList.get(p.getName())) return;
 			if(!p.hasPermission("speed.meter.speedmeter.allmeter")) return;
-		    if(!SpeedMeter.AllowedWorldNames.contains(p.getWorld().getName())) return;
-			if(SpeedMeter.manager.discreteMeterOnOff.containsKey(p.getName()))
-				if(!(SpeedMeter.manager.discreteMeterOnOff.get(p.getName()))) return;
+		    if(!AllowedWorldNames.contains(p.getWorld().getName())) return;
+			if(manager.discreteMeterOnOff.containsKey(p.getName()))
+				if(!(manager.discreteMeterOnOff.get(p.getName()))) return;
 			UUID uuid = p.getUniqueId();
 
 			if(ElytraMode) {

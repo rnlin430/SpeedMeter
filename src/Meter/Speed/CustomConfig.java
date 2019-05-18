@@ -12,13 +12,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public class CustomConfig {
 	private FileConfiguration config = null;
-    final File configFile;
+	private final File configFile;
 	private final String filename;
 	private final SpeedMeter plugin;
 
 	public CustomConfig(SpeedMeter plugin) {
 		this(plugin, "playerdata.yml");
 	}
+
 	public CustomConfig(SpeedMeter plugin, String fileName) {
 		this.plugin = plugin;
 		this.filename = fileName;
@@ -47,7 +48,7 @@ public class CustomConfig {
 		if (config == null) {
 			reloadConfig();
 		}
-		if(!(config == null)) {
+		if (!(config == null)) {
 		}
 		return config;
 	}
